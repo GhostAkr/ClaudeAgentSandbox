@@ -24,6 +24,27 @@ agent_tools: list = [
             },
             "required": ["path"]
         }
+    },
+    {
+        "name": "math",
+        "description": "Does math calculations over 2 given numbers. Use this when you need to calculate a sum or a subtraction. Returns the result of the operation.",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "operation": {
+                    "type": "string",
+                    "enum": ["+", "-", "unclear"]
+                },
+                "lhs": {
+                    "type": "number",
+                    "description": "The left operand. E.g. 3 in 3 + 4 or 5 in 5 - 2."
+                },
+                "rhs": {
+                    "type": "number",
+                    "description": "The right operand. E.g. 4 in 3 + 4 or 2 in 5 - 2."
+                }
+            }
+        }
     }
 ]
 
@@ -41,6 +62,18 @@ def _handle_edit_example2_tool(block_input: Dict) -> str:
     file_contents += "\nThis is a special row added by _handle_edit_example2_tool()\n"
     return file_contents
 
+def _handle_math_tool(block_input: Dict) -> int:
+    print("Using the math tool")
+    lhs: int = block_input["lhs"]
+    rhs: int = block_input["rhs"]
+
+    if (block_input["operation"] == "+"):
+        return lhs + rhs
+    elif (block_input["operation"] == "-"):
+        return lhs - rhs
+    else:
+        raise Exception
+
 
 def handle_tool(response: Message, messages: list) -> None:
     # Put the original message from the API first
@@ -55,26 +88,19 @@ def handle_tool(response: Message, messages: list) -> None:
             if block.name == "str_replace_based_edit_tool":
                 result: str = _handle_edit_tool(block.input)
 
-                messages.append({
-                    "role": "user",
-                    "content": [
-                        {
-                            "type": "tool_result",
-                            "tool_use_id": block.id,
-                            "content": result
-                        }
-                    ]
-                })
             elif block.name == "example2_opener":
                 result: str = _handle_edit_example2_tool(block.input)
 
-                messages.append({
-                    "role": "user",
-                    "content": [
-                        {
-                            "type": "tool_result",
-                            "tool_use_id": block.id,
-                            "content": result
-                        }
-                    ]
-                })
+            elif block.name == "math":
+                result: str = str(_handle_math_tool(block.input))
+
+            messages.append({
+                "role": "user",
+                "content": [
+                    {
+                        "type": "tool_result",
+                        "tool_use_id": block.id,
+                        "content": result
+                    }
+                ]
+            })

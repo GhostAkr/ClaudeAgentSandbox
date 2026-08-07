@@ -10,7 +10,7 @@ client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 
 def run_agent_loop() -> None:
     messages: list = [
-        {"role": "user", "content": "Calculate 2 * 3"}
+        {"role": "user", "content": "Calculate 2 + 3 and give a brief summary of the contents of /home/ghostakr/Repo/AnthropicCertification/data/example.txt"}
     ]
 
     while True:

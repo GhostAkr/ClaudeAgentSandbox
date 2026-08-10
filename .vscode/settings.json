@@ -1,5 +1,6 @@
 {
     "python.analysis.extraPaths": [
-        "./src/claude_api"
+        "./packages/claude_api",
+        "./packages/claude_sdk"
     ]
 }

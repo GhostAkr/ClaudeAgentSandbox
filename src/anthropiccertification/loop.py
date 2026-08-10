@@ -1,7 +1,7 @@
 import anthropic
 import os
 from dotenv import load_dotenv
-from anthropiccertification.tools import agent_tools, handle_tool
+from anthropiccertification.tools import math, file_reader_agent_tool, handle_tool
 
 type Message = anthropic.types.Message
 
@@ -21,7 +21,7 @@ def run_agent_loop() -> None:
             model="claude-haiku-4-5",
             messages=messages,
             max_tokens=1000,
-            tools=agent_tools
+            tools=[math, file_reader_agent_tool]
         )
 
         print("####### Response #######")

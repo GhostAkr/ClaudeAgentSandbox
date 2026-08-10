@@ -1,7 +1,7 @@
 import anthropic
 import os
 from dotenv import load_dotenv
-from anthropiccertification.tools import str_replace_based_edit_tool, example2_opener, handle_tool
+from claude_api.tools import str_replace_based_edit_tool, example2_opener, handle_tool
 
 type Message = anthropic.types.Message
 

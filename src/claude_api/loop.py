@@ -1,7 +1,7 @@
 import anthropic
 import os
 from dotenv import load_dotenv
-from anthropiccertification.tools import math, file_reader_agent_tool, handle_tool
+from claude_api.tools import math, file_reader_agent_tool, handle_tool
 
 type Message = anthropic.types.Message
 
@@ -10,7 +10,7 @@ client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 
 def run_agent_loop() -> None:
     messages: list = [
-        {"role": "user", "content": "Calculate 2 + 3 and give a brief summary of the contents of /home/ghostakr/Repo/AnthropicCertification/data/example.txt"}
+        {"role": "user", "content": "Calculate 2 + 3 and give a brief summary of the contents of /Users/ghostakr/Repo/ClaudeAgentSandbox/data/example.txt"}
     ]
 
     while True:

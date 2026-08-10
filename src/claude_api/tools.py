@@ -78,7 +78,7 @@ def _handle_edit_example2_tool(block_input: Dict) -> str:
     return file_contents
 
 def _handle_file_reader_agent_tool(block_input: Dict[str, object]) -> str:
-    from anthropiccertification.agents import run_file_reader_agent
+    from claude_api.agents import run_file_reader_agent
     return run_file_reader_agent(block_input["task"])
 
 def _handle_math_tool(block_input: Dict) -> int:

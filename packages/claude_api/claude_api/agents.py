@@ -1,7 +1,9 @@
-import anthropic
 import os
+
+import anthropic
+from claude_api.tools import (example2_opener, handle_tool,
+                              str_replace_based_edit_tool)
 from dotenv import load_dotenv
-from claude_api.tools import str_replace_based_edit_tool, example2_opener, handle_tool
 
 type Message = anthropic.types.Message
 

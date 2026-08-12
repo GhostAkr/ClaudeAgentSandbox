@@ -1,6 +1,7 @@
-import anthropic
-from typing import Dict
 from pathlib import Path
+from typing import Dict
+
+import anthropic
 
 type Message = anthropic.types.Message
 type ContentBlock = anthropic.types.ContentBlock

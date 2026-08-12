@@ -1,2 +1,7 @@
+import asyncio
+
+from claude_sdk.main_agent import run_coordinator
+
+
 def main() -> None:
-    print("Hello from claude_sdk!")
+    asyncio.run(run_coordinator())

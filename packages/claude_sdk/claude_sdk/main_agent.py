@@ -1,13 +1,18 @@
 import os
 
-from claude_agent_sdk import AssistantMessage, ResultMessage, query
+from claude_agent_sdk import (AssistantMessage, ClaudeAgentOptions,
+                              ResultMessage, query)
+from claude_sdk.subagents import subagents
 from dotenv import load_dotenv
 
 load_dotenv()
 
 async def run_coordinator():
     async for message in query(
-        prompt="Tell me who you are."
+        prompt="Read /Users/ghostakr/Repo/ClaudeAgentSandbox/data/example.txt and summarize its contents.",
+        options=ClaudeAgentOptions(
+            agents=subagents
+        )
     ):
         print("==================")
         print("Conversation round")

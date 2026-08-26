@@ -1,17 +1,24 @@
-import os
-
 from claude_agent_sdk import (AssistantMessage, ClaudeAgentOptions,
-                              ResultMessage, query)
+                              HookMatcher, ResultMessage, query)
+from claude_sdk.hooks import restrict_access_to_env
 from claude_sdk.subagents import subagents
 from dotenv import load_dotenv
 
 load_dotenv()
 
+files_to_read: list(str) = [
+    "/Users/ghostakr/Repo/ClaudeAgentSandbox/data/example.txt",
+    "/Users/ghostakr/Repo/ClaudeAgentSandbox/.env"
+]
+
 async def run_coordinator():
     async for message in query(
-        prompt="Read /Users/ghostakr/Repo/ClaudeAgentSandbox/data/example.txt and summarize its contents.",
+        prompt=f"Read {files_to_read[1]} and summarize its contents.",
         options=ClaudeAgentOptions(
-            agents=subagents
+            # agents=subagents,  # Uncomment if you want to test subagents. Note that it might conflict with the hooks
+            hooks={
+                "PreToolUse": [HookMatcher(matcher="Read|Edit", hooks=[restrict_access_to_env])]
+            }
         )
     ):
         print("==================")

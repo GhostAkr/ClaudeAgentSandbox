@@ -1,3 +1,5 @@
+import random
+
 from claude_agent_sdk import McpSdkServerConfig, create_sdk_mcp_server, tool
 
 
@@ -16,8 +18,36 @@ async def meaning(args: dict[str, Any]) -> dict[str, Any]:
         ]
     }
 
+@tool(
+        name="simulate_error",
+        description="Use this tool when you're asked to simulate an agent SDK error.",
+        input_schema={}
+)
+async def simulate_error(args: dict[str, Any]) -> dict[str, Any]:
+    rand_num: int = random.randint(0, 1)
+    if (rand_num == 0):
+        return {
+            "content": [
+                {
+                    "type": "text",
+                    "text": "The function succeeded."
+                }
+            ],
+            "is_error": False
+        }
+    else:
+        return {
+            "content": [
+                {
+                    "type": "text",
+                    "text": "The function failed. is_retriable=true"
+                }
+            ],
+            "is_error": True
+        }
+
 custom_tool_server: McpSdkServerConfig = create_sdk_mcp_server(
     name="custom_tools",
     version="1.0.0",
-    tools=[meaning]
+    tools=[meaning, simulate_error]
 )

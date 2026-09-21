@@ -1,0 +1,17 @@
+# .github/workflows/code_review.yml
+
+name: code_review
+
+on:
+  pull_request:
+
+jobs:
+  claude-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Claude Code review
+        run: |
+          claude -p \
+          --output-format json \
+          --allowed-tools Read Grep Glob \
+          "Review this PR for code smell."

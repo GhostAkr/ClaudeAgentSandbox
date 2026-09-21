@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run Claude Code review
-        anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@v1
         with:
           prompt: |
             "Review this PR for code smell."

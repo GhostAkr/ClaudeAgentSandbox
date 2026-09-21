@@ -10,8 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run Claude Code review
-        run: |
-          @claude -p \
-          --output-format json \
-          --allowed-tools Read Grep Glob \
-          "Review this PR for code smell."
+        anthropics/claude-code-action@v1
+        with:
+          prompt: |
+            "Review this PR for code smell."
+          claude_args: |
+            --output-format json \
+            --allowed-tools "Read Grep Glob" \

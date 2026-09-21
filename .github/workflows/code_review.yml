@@ -8,10 +8,15 @@ on:
 jobs:
   claude-review:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
       - name: Run Claude Code review
-        run: |
-          claude -p \
-          --output-format json \
-          --allowed-tools Read Grep Glob \
-          "Review this PR for code smell."
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{secrets.ANTHROPIC_API_KEY}}
+          prompt: |
+            "Review this PR for code smell."
+          claude_args: |
+            --output-format json \
+            --allowed-tools "Read Grep Glob" \

@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Run Claude Code review
         run: |
-          claude -p \
+          @claude -p \
           --output-format json \
           --allowed-tools Read Grep Glob \
           "Review this PR for code smell."
